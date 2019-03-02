@@ -11,13 +11,14 @@ class Canvas(QWidget):
     orientation = -90
     vector_length = 30
     blink = True
+    scale = 300 # 1m <-> 300pt
     
-    def __init__(self, car):
+    def __init__(self):
         super().__init__()
         self.GUI()
         self.origin = [self.width() / 2, self.height() / 2]
         self.setTimer()
-        self.car = car
+        self.car = Car()
 
     def GUI(self):
         self.setGeometry(0, 0, 600, 600)
@@ -61,7 +62,7 @@ class Canvas(QWidget):
         qp.setPen(Qt.red)
         x, y = self.width() // 2, self.height() // 2
         radian_basis = (self.orientation) * math.pi / 180
-        end_x= x + self.vector_length * math.cos(radian_basis) 
+        end_x = x + self.vector_length * math.cos(radian_basis) 
         end_y = y + self.vector_length * math.sin(radian_basis)
         qp.drawLine(x, y, end_x, end_y)
 
@@ -85,26 +86,40 @@ class Canvas(QWidget):
             self.deleteLater()
         elif event.key() == Qt.Key_Up:
             # going up
-            self.origin[0] += 5 * math.cos(self.orientation * math.pi / 180)
-            self.origin[1] += 5 * math.sin(self.orientation * math.pi / 180)
-            self.car.Move(car.FORWARD)
+            dx, dy, angle = self.car.Move(self.car.FORWARD)
+            self.origin[0] += dx * self.scale
+            self.origin[1] += dy * self.scale
+            self.orientation += angle
             print("going forward")
+            print("dx:", dx, "dy:", dy, "dangle:", angle)
         elif event.key() == Qt.Key_Down:
             # going down
-            self.origin[0] -= 5 * math.cos(self.orientation * math.pi / 180)
-            self.origin[1] -= 5 * math.sin(self.orientation * math.pi / 180)
-            self.car.Move(car.BACKWARD)
+            dx, dy, angle = self.car.Move(self.car.BACKWARD)
+            self.origin[0] += dx * self.scale
+            self.origin[1] += dy * self.scale
+            self.orientation += angle
             print("going backward")
+            print("dx:", dx, "dy:", dy, "dangle:", angle)            
+            
         elif event.key() == Qt.Key_Left:
             # turn left
-            self.orientation -= 5
-            self.car.Move(car.LEFT)
+            dx, dy, angle = self.car.Move(self.car.LEFT)
+            self.origin[0] += dx * self.scale
+            self.origin[1] += dy * self.scale
+            self.orientation += angle
             print("turning left")
+            print("dx:", dx, "dy:", dy, "dangle:", angle)
+            
         elif event.key() == Qt.Key_Right:
             # turn right
-            self.orientation += 5
-            self.car.Move(car.RIGHT)
+            dx, dy, angle = self.car.Move(self.car.RIGHT)
+            self.origin[0] += dx * self.scale
+            self.origin[1] += dy * self.scale
+            self.orientation += angle
             print("turning right")
+            print("dx:", dx, "dy:", dy, "dangle:", angle)
+            self.orientation += 5
+            
         self.update()
         event.accept()
 
@@ -113,6 +128,5 @@ class Canvas(QWidget):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    car = Car()
-    canvas = Canvas(car)
+    canvas = Canvas()
     sys.exit(app.exec_())
