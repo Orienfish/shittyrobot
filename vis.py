@@ -18,7 +18,7 @@ class Canvas(QWidget):
         super().__init__()
         self.GUI()
         self.origin = [self.width() / 2, self.height() / 2]
-        self.origins.append(self.origin)
+        self.origins.append((self.origin[0], self.origin[1]))
         self.setTimer()
         self.car = Car()
 
@@ -80,13 +80,15 @@ class Canvas(QWidget):
     def _drawPastOrigins(self, e, qp):
         pen = QPen()
         pen.setColor(Qt.green)
-        pen.setWidth(3)
+        pen.setWidth(1)
         qp.setPen(pen)
+        # print(self.origins)
         for i in range(0, len(self.origins)-1):
             x, y = self.origins[i]
             x_next, y_next = self.origins[i+1]
             qp.drawPoint(x - self.origin[0] + self.width() / 2, y - self.origin[1] + self.height() / 2)
-            qp.drawLine(x, y, x_next, y_next)
+            qp.drawLine(x - self.origin[0] + self.width() / 2, y - self.origin[1] + self.height() / 2, \
+                x_next - self.origin[0] + self.width() / 2, y_next - self.origin[1] + self.height() / 2)
         
     def _drawRobotOrigin(self, e, qp):
         qp.setBrush(Qt.red)
@@ -139,7 +141,7 @@ class Canvas(QWidget):
             print("origin:", self.origin[0], self.origin[1])
             print("orientation:", self.orientation)
             
-        self.origins.append(self.origin)
+        self.origins.append((self.origin[0], self.origin[1]))
         self.update()
         event.accept()
 

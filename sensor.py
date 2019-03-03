@@ -58,7 +58,7 @@ class Sensor:
 		'''
 		if (measure_interval is None):
 			measure_interval = self.MEASURE_INTERVAL
-		print("time:", time.time())
+		# print("time:", time.time())
 		self.e1 = self.scheduler.enter(measure_interval, 1, self.measure)
 		accel = self.sensor.get_accel_data()
 		gyro =  self.sensor.get_gyro_data()
@@ -75,8 +75,8 @@ class Sensor:
 		self.dy += self.vy * self.MEASURE_INTERVAL
 		self.anglez += (gyro['z'] - self.gyro_offset['z']) * self.MEASURE_INTERVAL
 		# self.lock.release()
-		print("ax:", accel_x, "ay:", accel_y)
-		print("dx:", self.dx, "dy:", self.dy, "angle:", self.anglez, "vx:", self.vx, "vy:", self.vy)
+		# print("ax:", accel_x, "ay:", accel_y)
+		# print("dx:", self.dx, "dy:", self.dy, "angle:", self.anglez, "vx:", self.vx, "vy:", self.vy)
 
 	def calibrate(self):
 		'''
