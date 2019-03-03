@@ -13,7 +13,7 @@ class Canvas(QWidget):
     theta = 0
     vector_length = 30
     blink = True
-    scale = 200 # 1m <-> 100pt
+    scale = 100 # 1m <-> 100pt
     
     def __init__(self):
         super().__init__()
