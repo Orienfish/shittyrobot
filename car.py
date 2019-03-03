@@ -15,7 +15,6 @@ class Car:
 	# constant parameters
 	STEP = 0.4
 	MOTOR_INTERVAL = 0.5
-	GAP = 1.0 # gap time before and after each movement
 
 	def __init__(self):
 		# motor setup
@@ -44,7 +43,6 @@ class Car:
 		else:
 			return
 		
-		time.sleep(GAP) # a gap to avoid consecutive movements
 		self.sensor.reset()
 		self.sensor.start_measure()
 
@@ -54,7 +52,6 @@ class Car:
 		self.rMotor.throttle, self.lMotor.throttle = 0, 0
 		
 		# end measurement
-		time.sleep(GAP) # a gap for complete measurements
 		self.sensor.end_measure()
 
 		dx, dy = self.sensor.get_position()
