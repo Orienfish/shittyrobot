@@ -10,6 +10,7 @@ class Canvas(QWidget):
     pts = []
     origins = [] # past origins
     orientation = -90
+    theta = 0
     vector_length = 30
     blink = True
     scale = 200 # 1m <-> 100pt
@@ -42,6 +43,12 @@ class Canvas(QWidget):
         self.pts.append((x, y))
         self.update()
         print("point added")
+
+    def orientation_to_radian_theta(self):
+        '''
+        convert orientation - the direction in canvas to  theta - the direction of robot
+        '''
+        return (self.orientation + 90) * math.pi / 180.0
 
     '''
     the point should be generated using two input variables:
@@ -97,49 +104,43 @@ class Canvas(QWidget):
         qp.drawPoint(x, y)
 
     def keyPressEvent(self, event):
+        theta = self.orientation_to_radian_theta()
         if event.key() == Qt.Key_Q:
             print('Killing')
             self.deleteLater()
         elif event.key() == Qt.Key_Up:
             # going up
             dx, dy, angle = self.car.Move(self.car.FORWARD)
-            self.origin[0] -= dy * self.scale
-            self.origin[1] -= dx * self.scale
+            self.origin[0] += dx * math.sin(theta) * self.scale
+            # self.origin[0] += -dy * math.cos(theta) * self.scale
+            self.origin[1] += -dx * math.cos(theta) * self.scale
+            # self.origin[1] += -dy * math.sin(theta) * self.scale
             self.orientation -= angle
             print("going forward")
             print("dx:", dx, "dy:", dy, "dangle:", angle)
-            print("origin:", self.origin[0], self.origin[1])
-            print("orientation:", self.orientation)
+            print("origin:", self.origin[0], self.origin[1], dx * math.sin(theta) * self.scale, -dx * math.cos(theta) * self.scale)
+            print("theta:", theta)
         elif event.key() == Qt.Key_Down:
             # going down
             dx, dy, angle = self.car.Move(self.car.BACKWARD)
-            self.origin[0] -= dy * self.scale
-            self.origin[1] -= dx * self.scale
+            self.origin[0] += dx * math.sin(theta) * self.scale
+            # self.origin[0] += -dy * math.cos(theta) * self.scale
+            self.origin[1] += -dx * math.cos(theta) * self.scale
+            # self.origin[1] += -dy * math.sin(theta) * self.scale
             self.orientation -= angle
             print("going backward")
             print("dx:", dx, "dy:", dy, "dangle:", angle)            
-            print("origin:", self.origin[0], self.origin[1])
-            print("orientation:", self.orientation)
+            print("origin:", self.origin[0], self.origin[1], dx * math.sin(theta) * self.scale, -dx * math.cos(theta) * self.scale)
+            print("theta:", theta)
         elif event.key() == Qt.Key_Left:
             # turn left
             dx, dy, angle = self.car.Move(self.car.LEFT)
-            self.origin[0] -= dy * self.scale
-            self.origin[1] -= dx * self.scale
             self.orientation -= angle
-            print("turning left")
-            print("dx:", dx, "dy:", dy, "dangle:", angle)
-            print("origin:", self.origin[0], self.origin[1])
-            print("orientation:", self.orientation)
+            
         elif event.key() == Qt.Key_Right:
             # turn right
             dx, dy, angle = self.car.Move(self.car.RIGHT)
-            self.origin[0] -= dy * self.scale
-            self.origin[1] -= dx * self.scale
             self.orientation -= angle
-            print("turning right")
-            print("dx:", dx, "dy:", dy, "dangle:", angle)
-            print("origin:", self.origin[0], self.origin[1])
-            print("orientation:", self.orientation)
             
         self.origins.append((self.origin[0], self.origin[1]))
         self.update()

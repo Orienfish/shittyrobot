@@ -14,7 +14,7 @@ class Car:
 	RIGHT = 3
 	# constant parameters
 	STEP = 0.4
-	MOTOR_INTERVAL = 0.5
+	MOTOR_INTERVAL = 0.6
 
 	def __init__(self):
 		# motor setup
@@ -56,7 +56,7 @@ class Car:
 
 		dx, dy = self.sensor.get_position()
 		angle = self.sensor.get_angle()
-		return dx, dy, angle # the incremental distance and angle caused by this movement
+		return dx, dy, angle # the incremental distance and angle lists caused by this movement
 	
 		
 

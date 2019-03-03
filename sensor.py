@@ -9,7 +9,7 @@ import math
 from mpu6050 import mpu6050
 
 class Sensor:
-	MEASURE_INTERVAL = 0.05
+	MEASURE_INTERVAL = 0.04
 	CALIBRATE = 10
 
 	def __init__(self):
@@ -38,12 +38,9 @@ class Sensor:
 		self.dy = 0.0
 		self.anglez = 0.0
 
-	def start_measure(self, measure_interval=None):
-		if (measure_interval is None):
-			measure_interval = self.MEASURE_INTERVAL
-
+	def start_measure(self):
 		# start measurements series
-		self.e1 = self.scheduler.enter(measure_interval, 1, self.measure)
+		self.e1 = self.scheduler.enter(self.MEASURE_INTERVAL, 1, self.measure)
 		self.t = threading.Thread(target=self.scheduler.run)
 		self.t.start()
 
@@ -52,16 +49,14 @@ class Sensor:
 		self.scheduler.cancel(self.e1)
 		self.t.join()
 
-	def measure(self, measure_interval=None):
+	def measure(self):
 		'''
-		Perform one measurement and schedule the next
+		Perform one measurement and schedule the next  
 		'''
-		if (measure_interval is None):
-			measure_interval = self.MEASURE_INTERVAL
 		# print("time:", time.time())
-		self.e1 = self.scheduler.enter(measure_interval, 1, self.measure)
+		self.e1 = self.scheduler.enter(self.MEASURE_INTERVAL, 1, self.measure)
 		accel = self.sensor.get_accel_data()
-		gyro =  self.sensor.get_gyro_data()
+		gyro =  self.sensor.get_gyro_data()			
 		accel_x = accel['x'] - self.accel_offset['x']
 		accel_y = accel['y'] - self.accel_offset['y']
 		cosine = math.cos(self.anglez * math.pi / 180.0)
@@ -72,11 +67,12 @@ class Sensor:
 		self.vy += accel_y * self.MEASURE_INTERVAL * cosine
 		self.vy += accel_x * self.MEASURE_INTERVAL * sine
 		self.dx += self.vx * self.MEASURE_INTERVAL
-		self.dy += self.vy * self.MEASURE_INTERVAL
+		self.dy += self.vy * self.MEASURE_INTERVAL      
 		self.anglez += (gyro['z'] - self.gyro_offset['z']) * self.MEASURE_INTERVAL
+
 		# self.lock.release()
-		# print("ax:", accel_x, "ay:", accel_y)
-		# print("dx:", self.dx, "dy:", self.dy, "angle:", self.anglez, "vx:", self.vx, "vy:", self.vy)
+		print("ax:", accel_x, "ay:", accel_y)
+		print("dx:", self.dx, "dy:", self.dy, "angle:", self.anglez, "vx:", self.vx, "vy:", self.vy)
 
 	def calibrate(self):
 		'''
@@ -115,13 +111,7 @@ class Sensor:
 		self.anglez = 0.0		
 
 	def get_position(self):
-		# self.lock.acquire()
-		dx, dy = self.dx, self.dy
-		# self.lock.release()
-		return dx, dy
+		return self.dx, self.dy
 
 	def get_angle(self):
-		# self.lock.acquire()
-		angle = self.anglez
-		# self.lock.release()
-		return angle
+		return self.anglez
