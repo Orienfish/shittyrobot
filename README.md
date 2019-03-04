@@ -27,8 +27,9 @@ However, to be honest, the final system does not perform well. An important less
 * A distance detection module based on HC-SR04 (sonic.py)
 
 ## How to assemble a robot vehicle from scratch
+1. Assemble robot kit and drive motors. This could be quickly done by following Adafruit's [Tutorial](https://learn.adafruit.com/adafruit-motor-shield-v2-for-arduino/overview)
+<div align=left><img width="300" height="275" src="https://github.com/Orienfish/Shittyrobot/blob/master/img/assemble.jpg"/></div>
 
-[Link](https://learn.adafruit.com/adafruit-motor-shield-v2-for-arduino/overview)
 * Install OpenCV on Raspberry Pi. <br>
   You can follow this [tutorial](https://www.pyimagesearch.com/2017/10/09/optimizing-opencv-on-the-raspberry-pi/) to build an optimized version of OpenCV with NEON and VFPV3 enabled. My experience is that this could improve the speed by around 50%!
 
