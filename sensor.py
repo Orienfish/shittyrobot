@@ -9,7 +9,7 @@ import math
 from mpu6050 import mpu6050
 
 class Sensor:
-	MEASURE_INTERVAL = 0.04
+	MEASURE_INTERVAL = 0.03
 	CALIBRATE = 10
 
 	def __init__(self):
@@ -43,6 +43,7 @@ class Sensor:
 		self.e1 = self.scheduler.enter(self.MEASURE_INTERVAL, 1, self.measure)
 		self.t = threading.Thread(target=self.scheduler.run)
 		self.t.start()
+		# return self.lock
 
 	def end_measure(self):
 		# end measurements series and wait for the thread to join
@@ -54,6 +55,7 @@ class Sensor:
 		Perform one measurement and schedule the next  
 		'''
 		# print("time:", time.time())
+		# self.lock.acquire()
 		self.e1 = self.scheduler.enter(self.MEASURE_INTERVAL, 1, self.measure)
 		accel = self.sensor.get_accel_data()
 		gyro =  self.sensor.get_gyro_data()			
@@ -61,7 +63,6 @@ class Sensor:
 		accel_y = accel['y'] - self.accel_offset['y']
 		cosine = math.cos(self.anglez * math.pi / 180.0)
 		sine = math.sin(self.anglez * math.pi / 180.0)
-		# self.lock.acquire()
 		self.vx += accel_x * self.MEASURE_INTERVAL * cosine
 		self.vx += accel_y * self.MEASURE_INTERVAL * (-sine)
 		self.vy += accel_y * self.MEASURE_INTERVAL * cosine

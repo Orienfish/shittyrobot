@@ -8,8 +8,8 @@ import time
 class Sonic:
     TRIG = 18
     ECHO = 27
-    TIME_OUT = 2000
-    MEASURE_CNT = 100
+    TIME_OUT = 300
+    MEASURE_CNT = 10
     THRESHOLD = 1000.0
 
     def __init__(self):
@@ -63,6 +63,7 @@ class Sonic:
             if val > threshold: # do not count outliers
                 continue
             average += val
+            print(val)
             count += 1
         depth = None
         if count > 0:
