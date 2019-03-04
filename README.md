@@ -27,10 +27,27 @@ However, to be honest, the final system does not perform well. An important less
 * A distance detection module based on HC-SR04 (sonic.py)
 
 ## How to assemble a robot vehicle from scratch
-1. Assemble robot kit and drive motors. This could be quickly done by following Adafruit's [Tutorial](https://learn.adafruit.com/adafruit-motor-shield-v2-for-arduino/overview)
+1. Assemble robot kit and drive motors. This could be quickly done by following Adafruit's wonderful [tutorial](https://learn.adafruit.com/adafruit-motor-shield-v2-for-arduino/overview)
 <div align=left><img width="1000" height="250" src="https://github.com/Orienfish/Shittyrobot/blob/master/img/assemble.png"/></div>
-
-* Install OpenCV on Raspberry Pi. <br>
+2. Connect MPU-6050 to Raspberry Pi through I2C. Then install `python3-smbus (python-smbus)` dependencies:
+```
+sudo apt install python3-smbus
+```
+Then install `mpu6050-raspberrypi` package from Pypi repository:
+```
+pip3 install mpu6050-raspberrypi
+```
+Finally you can get the accelerometer and gyroscope's data by:
+```
+from mpu6050 import mpu6050
+sensor = mpu6050(0x68)
+accelerometer_data = sensor.get_accel_data()
+gyroscope_data = sensor.get_gyro_data()
+```
+Basically, this package can help you read raw data from MPU-6050 and set range. The available range of accelerometer is +-2G, +-4G, +-8G, +-16G while the range gyroscope is +-250, +-500, +-1000, +-2000 degrees per second. It's important to set the proper measurement range. <br>
+You can check the [tutorial](https://pypi.org/project/mpu6050-raspberrypi/)for package install. The datasheet of MPU-6050 can be found [here](https://store.invensense.com/datasheets/invensense/MPU-6050_DataSheet_V3%204.pdf).
+3. Connect ultrasonic sensor to Raspberry Pi through GPIO. Notice that you need to use extra resistors as the output voltage of ultrasonic sensor is 5V but the maximum acceptable voltage of GPIO is 3.3V.
+4. Install OpenCV on Raspberry Pi. <br>
   You can follow this [tutorial](https://www.pyimagesearch.com/2017/10/09/optimizing-opencv-on-the-raspberry-pi/) to build an optimized version of OpenCV with NEON and VFPV3 enabled. My experience is that this could improve the speed by around 50%!
 
 ## Results
