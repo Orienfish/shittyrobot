@@ -53,7 +53,7 @@ gyroscope_data = sensor.get_gyro_data()
 Basically, this package can help you read raw data from MPU-6050 and set range. The available range of accelerometer is +-2G, +-4G, +-8G, +-16G while the range gyroscope is +-250, +-500, +-1000, +-2000 degrees per second. It's important to set the proper measurement range. <br>
 You can check the [tutorial](https://pypi.org/project/mpu6050-raspberrypi/) for package install. The datasheet of MPU-6050 can be found [here](https://store.invensense.com/datasheets/invensense/MPU-6050_DataSheet_V3%204.pdf).
 
-3. Connect ultrasonic sensor to Raspberry Pi through GPIO. Notice that you need to use extra resistors as the output voltage of ultrasonic sensor is 5V but the maximum acceptable voltage of GPIO is 3.3V.
+3. Connect ultrasonic sensor to Raspberry Pi through GPIO. Notice that you need to use extra resistors as the output voltage of ultrasonic sensor is 5V but the maximum acceptable voltage of GPIO is 3.3V. Check the tutorial [here](https://www.modmypi.com/blog/hc-sr04-ultrasonic-range-sensor-on-the-raspberry-pi).
 
 4. Install OpenCV on Raspberry Pi. <br>
   You can follow this [tutorial](https://www.pyimagesearch.com/2017/10/09/optimizing-opencv-on-the-raspberry-pi/) to build an optimized version of OpenCV with NEON and VFPV3 enabled. My experience is that this could improve the speed by around 50%!
