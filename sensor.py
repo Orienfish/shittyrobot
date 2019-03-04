@@ -71,8 +71,8 @@ class Sensor:
 		self.anglez += (gyro['z'] - self.gyro_offset['z']) * self.MEASURE_INTERVAL
 
 		# self.lock.release()
-		print("ax:", accel_x, "ay:", accel_y)
-		print("dx:", self.dx, "dy:", self.dy, "angle:", self.anglez, "vx:", self.vx, "vy:", self.vy)
+		# print("ax:", accel_x, "ay:", accel_y)
+		# print("dx:", self.dx, "dy:", self.dy, "angle:", self.anglez, "vx:", self.vx, "vy:", self.vy)
 
 	def calibrate(self):
 		'''

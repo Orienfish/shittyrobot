@@ -3,6 +3,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 import sys, random, math, time
 from car import Car
+from sonic import Sonic
 
 class Canvas(QWidget):
 
@@ -14,6 +15,7 @@ class Canvas(QWidget):
     vector_length = 30
     blink = True
     scale = 100 # 1m <-> 100pt
+    sonic_point_cnt = 5
     
     def __init__(self):
         super().__init__()
@@ -22,6 +24,7 @@ class Canvas(QWidget):
         self.origins.append((self.origin[0], self.origin[1]))
         self.setTimer()
         self.car = Car()
+        self.sonic = Sonic()
 
     def GUI(self):
         self.setGeometry(0, 0, 600, 600)
@@ -35,12 +38,11 @@ class Canvas(QWidget):
         self._status_update_timer.start(500)
 
     def _update_points(self):
-        angles = random.randint(1, 360)
-        depth = random.randint(1, 150)
-        angle = angles * math.pi / 180
+        # angles = random.randint(1, 360)
+        # depth = random.randint(1, 150)
+        # angle = angles * math.pi / 180
         # x, y = self.origin[0] + depth * math.cos(angle), self.origin[1] + depth * math.sin(angle)
-        x, y = self.origin[0] + depth * math.cos(angle), self.origin[1] + depth * math.sin(angle)
-        self.pts.append((x, y))
+        # self.pts.append((x, y))
         self.update()
         print("point added")
 
@@ -117,9 +119,9 @@ class Canvas(QWidget):
             # self.origin[1] += -dy * math.sin(theta) * self.scale
             self.orientation -= angle
             print("going forward")
-            print("dx:", dx, "dy:", dy, "dangle:", angle)
-            print("origin:", self.origin[0], self.origin[1], dx * math.sin(theta) * self.scale, -dx * math.cos(theta) * self.scale)
-            print("theta:", theta)
+            print("dx:", dx, "dangle:", angle)
+            # print("origin:", self.origin[0], self.origin[1], dx * math.sin(theta) * self.scale, -dx * math.cos(theta) * self.scale)
+            
         elif event.key() == Qt.Key_Down:
             # going down
             dx, dy, angle = self.car.Move(self.car.BACKWARD)
@@ -129,20 +131,34 @@ class Canvas(QWidget):
             # self.origin[1] += -dy * math.sin(theta) * self.scale
             self.orientation -= angle
             print("going backward")
-            print("dx:", dx, "dy:", dy, "dangle:", angle)            
-            print("origin:", self.origin[0], self.origin[1], dx * math.sin(theta) * self.scale, -dx * math.cos(theta) * self.scale)
-            print("theta:", theta)
+            print("dx:", dx, "dangle:", angle)            
+            # print("origin:", self.origin[0], self.origin[1], dx * math.sin(theta) * self.scale, -dx * math.cos(theta) * self.scale)
+        
         elif event.key() == Qt.Key_Left:
             # turn left
             dx, dy, angle = self.car.Move(self.car.LEFT)
             self.orientation -= angle
+            print("turning left")
+            print("dangle:", angle)
             
         elif event.key() == Qt.Key_Right:
             # turn right
             dx, dy, angle = self.car.Move(self.car.RIGHT)
             self.orientation -= angle
-            
+            print("turning right")
+            print("dangle:", angle)
+
+        # update origins list
         self.origins.append((self.origin[0], self.origin[1]))
+
+        # update depth position self.pts
+        self.sonic_depth = self.sonic.step_measure()
+        print("depth measure:", self.sonic_depth)
+        if (self.sonic_depth != None): # if get valid measurement
+            for j in range(self.sonic_point_cnt):
+                theta = (self.orientation -2 + j) * math.pi / 180
+                x, y = self.origin[0] + self.sonic_depth * math.cos(theta), self.origin[1] + self.sonic_depth * math.sin(theta)
+                self.pts.append((x,y))
         self.update()
         event.accept()
 
