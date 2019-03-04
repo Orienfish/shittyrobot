@@ -39,7 +39,6 @@ Then install `mpu6050-raspberrypi` package from Pypi repository:
 pip3 install mpu6050-raspberrypi
 ```
 Finally you can get the accelerometer and gyroscope's data by:
-
 ```python
 from mpu6050 import mpu6050
 sensor = mpu6050(0x68)
