@@ -1,7 +1,7 @@
 # Shittyrobot 
 A Remote-Controlled Robot Vehicle for 2-D Map Reconstruction. Built in UCSD CSE237A, based on Raspberry Pi 3B+.
 Collaborator: [Micheal Liu](https://github.com/iosmichael). 
-<div align=left><img width="300" height="250" src="https://github.com/Orienfish/Shittyrobot/blob/master/img/car_final.jpg"/></div>
+<div align=left><img width="300" height="275" src="https://github.com/Orienfish/Shittyrobot/blob/master/img/car_final.jpg"/></div>
 This tutorial will teach you how to build a robot vehicle from scratch, and share some of our experiences.
 
 ## Introduction
