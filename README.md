@@ -35,7 +35,6 @@ However, to be honest, the final system does not perform well. An important less
 sudo apt install python3-smbus
 ```
 Then install `mpu6050-raspberrypi` package from Pypi repository:
-
 ```
 pip3 install mpu6050-raspberrypi
 ```
