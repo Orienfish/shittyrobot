@@ -58,3 +58,14 @@ You can follow this [tutorial](https://www.pyimagesearch.com/2017/10/09/optimizi
 
 ## Results
 <div align=left><img width="500" height="250" src="https://github.com/Orienfish/Shittyrobot/blob/master/img/demo.png"/></div>
+This picture shows the distance measurements from ultrasonic sensor. As you can see, ultraosonic sensor works pretty well on simple desk demo and straight wall. But it performs poorly in complex environments. <br>
+Currently, the time for one MPU-6050 measurement is ~6ms, while for ultrasonic sensor is ~30ms because we made a coupld of measurement and took the average. Before optimization, computing depth for one image costs ~1.6s. After enabling NEON and VFPV3, the time needed is ~0.6s. 
+
+## Future Improvements
+A lot of potential improvements could be done, including:
+* Using better and more expensive sensors
+* Improve the depth computation algorithm, extract useful information
+* Implement automatic environment exploration
+
+## Resources
+You can check our slides and report. Welcome to UCSD's CSE237A!
