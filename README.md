@@ -76,4 +76,4 @@ A lot of potential improvements could be done, including:
 * Implement automatic environment exploration
 
 ## Resources
-You can check our slides and report. Welcome to UCSD's CSE237A!
+You can check our [slides](http://cseweb.ucsd.edu/~x1yu/doc/CSE237A_final_project.pdf). Welcome to UCSD's CSE237A!
