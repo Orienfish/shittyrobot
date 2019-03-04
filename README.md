@@ -57,3 +57,4 @@ You can check the [tutorial](https://pypi.org/project/mpu6050-raspberrypi/) for 
 You can follow this [tutorial](https://www.pyimagesearch.com/2017/10/09/optimizing-opencv-on-the-raspberry-pi/) to build an optimized version of OpenCV with NEON and VFPV3 enabled. My experience is that this could improve the speed by around 50%!
 
 ## Results
+<div align=left><img width="500" height="250" src="https://github.com/Orienfish/Shittyrobot/blob/master/img/assemble.png"/></div>
