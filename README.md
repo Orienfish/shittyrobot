@@ -1,7 +1,7 @@
 # Shittyrobot 
 A Remote-Controlled Robot Vehicle for 2-D Map Reconstruction. Built in UCSD CSE237A, based on Raspberry Pi 3B+.
 Collaborator: [Micheal Liu](https://github.com/iosmichael). 
-<div align=left><img width="800" height="250" src="https://github.com/Orienfish/Shittyrobot/blob/master/img/car_final.jpg"/></div>
+<div align=center><img width="400" height="400" src="https://github.com/Orienfish/Shittyrobot/blob/master/img/car_final.jpg"/></div>
 
 ## Introduction
 Indoor map reconstruction is the first step for any location-based services. In this project, we tried to build a robot vehicle which travels around the room under remote control and measures distance with stereo camera and ultrasonic sensor. We selects stereo camera because it contains high dimensional information thus is theoretically more suitable for environment reconstruction. Ultrasonic sensor is used to compensate when stereo camera doesn't work well - when there's a wall locating closely in front of the robot.
