@@ -51,6 +51,9 @@ gyroscope_data = sensor.get_gyro_data()
 ```
 
 Basically, this package can help you read raw data from MPU-6050 and set range. The available range of accelerometer is +-2G, +-4G, +-8G, +-16G while the range gyroscope is +-250, +-500, +-1000, +-2000 degrees per second. It's important to set the proper measurement range. <br>
+
+In this repository, we implement the distance calculation using integral of acceleration and speed. Check `sensor.py`. <br>
+
 You can check the [tutorial](https://pypi.org/project/mpu6050-raspberrypi/) for package install. The datasheet of MPU-6050 can be found [here](https://store.invensense.com/datasheets/invensense/MPU-6050_DataSheet_V3%204.pdf).
 
 3. Connect ultrasonic sensor to Raspberry Pi through GPIO. Notice that you need to use extra resistors as the output voltage of ultrasonic sensor is 5V but the maximum acceptable voltage of GPIO is 3.3V. Check the tutorial [here](https://www.modmypi.com/blog/hc-sr04-ultrasonic-range-sensor-on-the-raspberry-pi).
