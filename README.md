@@ -52,7 +52,7 @@ gyroscope_data = sensor.get_gyro_data()
 
 Basically, this package can help you read raw data from MPU-6050 and set range. The available range of accelerometer is +-2G, +-4G, +-8G, +-16G while the range gyroscope is +-250, +-500, +-1000, +-2000 degrees per second. It's important to set the proper measurement range. <br>
 
-In this repository, we implement the distance calculation using integral of acceleration and speed. Check `sensor.py`. <br>
+In this repository, we implement the distance calculation using integral of acceleration and speed. It's most important to figure the geometry projection right. Check `sensor.py`. <br>
 
 You can check the [tutorial](https://pypi.org/project/mpu6050-raspberrypi/) for package install. The datasheet of MPU-6050 can be found [here](https://store.invensense.com/datasheets/invensense/MPU-6050_DataSheet_V3%204.pdf).
 
