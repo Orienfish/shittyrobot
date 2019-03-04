@@ -51,7 +51,15 @@ Note:
 
 You can check the [tutorial](https://pypi.org/project/mpu6050-raspberrypi/) for package install. The datasheet of MPU-6050 can be found [here](https://store.invensense.com/datasheets/invensense/MPU-6050_DataSheet_V3%204.pdf).
 
-3. Connect ultrasonic sensor to Raspberry Pi through GPIO. Notice that you need to use extra resistors as the output voltage of ultrasonic sensor is 5V but the maximum acceptable voltage of GPIO is 3.3V. Check the tutorial [here](https://www.modmypi.com/blog/hc-sr04-ultrasonic-range-sensor-on-the-raspberry-pi).
+3. Connect ultrasonic sensor to Raspberry Pi through GPIO. Notice that you need to use extra resistors as the output voltage of ultrasonic sensor is 5V but the maximum acceptable voltage of GPIO is 3.3V. You can measure the pulse width using two simple loops:
+
+```python
+while GPIO.input(ECHO)==0:
+    pulse_start = time.time()
+while GPIO.input(ECHO)==1:
+    pulse_end = time.time()  
+```
+This is the basic framework and some exception handlings are needed. Check the [tutorial](https://www.modmypi.com/blog/hc-sr04-ultrasonic-range-sensor-on-the-raspberry-pi) and our code in `sonic.py`.
 
 4. Install OpenCV on Raspberry Pi and perform image processing as in `stereo/stereo_display.py`. <br>
 You can follow this [tutorial](https://www.pyimagesearch.com/2017/10/09/optimizing-opencv-on-the-raspberry-pi/) to build an optimized version of OpenCV with NEON and VFPV3 enabled. My experience is that this could improve the speed by around 50%!
