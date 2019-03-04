@@ -27,7 +27,7 @@ However, to be honest, the final system does not perform well. An important less
 * A distance detection module based on HC-SR04 (sonic.py)
 
 ## How to assemble a robot vehicle from scratch
-1. Assemble robot kit and drive motors. This could be quickly done by following Adafruit's wonderful [tutorial](https://learn.adafruit.com/adafruit-motor-shield-v2-for-arduino/overview)
+1. Assemble robot kit and drive motors. This could be quickly done by following Adafruit's wonderful [tutorial](https://learn.adafruit.com/adafruit-motor-shield-v2-for-arduino/overview). Check our code in `car.py`.
 <div align=left><img width="1000" height="250" src="https://github.com/Orienfish/Shittyrobot/blob/master/img/assemble.png"/></div>
 2. Connect MPU-6050 to Raspberry Pi through I2C. Then install `python3-smbus` dependencies:
 
