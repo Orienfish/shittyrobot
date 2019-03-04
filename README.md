@@ -30,14 +30,17 @@ However, to be honest, the final system does not perform well. An important less
 1. Assemble robot kit and drive motors. This could be quickly done by following Adafruit's wonderful [tutorial](https://learn.adafruit.com/adafruit-motor-shield-v2-for-arduino/overview)
 <div align=left><img width="1000" height="250" src="https://github.com/Orienfish/Shittyrobot/blob/master/img/assemble.png"/></div>
 2. Connect MPU-6050 to Raspberry Pi through I2C. Then install `python3-smbus` dependencies:
+
 ```
 sudo apt install python3-smbus
 ```
 Then install `mpu6050-raspberrypi` package from Pypi repository:
+
 ```
 pip3 install mpu6050-raspberrypi
 ```
 Finally you can get the accelerometer and gyroscope's data by:
+
 ```python
 from mpu6050 import mpu6050
 sensor = mpu6050(0x68)
